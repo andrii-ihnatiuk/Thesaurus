@@ -1,5 +1,6 @@
 package com.opsu.thesaurus
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -23,10 +24,16 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.ic_home -> setCurrentFragment(homeFragment)
+                R.id.ic_add -> createNewSet()
                 R.id.ic_profile -> setCurrentFragment(profileFragment)
             }
             true
         }
+    }
+
+    private fun createNewSet() {
+        val intent = Intent(this,  CreateSetActivity::class.java)
+        startActivity(intent)
     }
 
     private fun setCurrentFragment(fragment: Fragment) {

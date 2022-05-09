@@ -1,5 +1,6 @@
 package com.opsu.thesaurus.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,8 @@ import com.opsu.thesaurus.fragments.HomeFragment
 
 class SetsAdapter(private val inflater: LayoutInflater, private val sets: List<HomeFragment.SetModel>) : RecyclerView.Adapter<SetsAdapter.ViewHolder>()
 {
+    private lateinit var context: Context
+
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
         {
             val setName: TextView = view.findViewById(R.id.txtSetName)
@@ -18,8 +21,9 @@ class SetsAdapter(private val inflater: LayoutInflater, private val sets: List<H
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        context = parent.context
         return ViewHolder(inflater.inflate(
-                R.layout.list_item,
+                R.layout.sets_list_item,
                 parent,
                 false
             )
@@ -30,8 +34,8 @@ class SetsAdapter(private val inflater: LayoutInflater, private val sets: List<H
         val set = sets[position]
 
         holder.setName.text = set.name
-        holder.termsCount.text = set.numOfTerms.toString()
-        holder.author.text = set.createdBy;
+        holder.termsCount.text = context.getString(R.string.terms_count, set.numOfTerms)
+        holder.author.text = set.createdBy
     }
 
     override fun getItemCount(): Int = sets.size

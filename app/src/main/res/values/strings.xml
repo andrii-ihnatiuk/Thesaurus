@@ -5,4 +5,8 @@
     <string name="user_name">Username</string>
     <string name="user_name_placeholder">Your profile name</string>
     <string name="toolbar_create_set">Create set</string>
+    <string name="hint_title">Title</string>
+
+
+    <string name="terms_count">%1$d terms</string>
 </resources>
