@@ -2,5 +2,5 @@
 Android application for learning languages
 
 Team members:
-Ігнатюк Андрій, УІ-191
-Кисельов Даніїл, УІ-191
+<p>Ігнатюк Андрій, УІ-191</p>
+<p>Кисельов Даніїл, УІ-191</p>
