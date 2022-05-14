@@ -23,5 +23,4 @@ class ProfileFragment : Fragment() {
         fun newInstance() = HomeFragment()
     }
 
-    data class SetModel(val name: String, val numOfTerms: Int, val createdBy: String)
 }

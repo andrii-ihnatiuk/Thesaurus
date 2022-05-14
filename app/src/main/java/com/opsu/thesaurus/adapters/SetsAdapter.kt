@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.opsu.thesaurus.R
-import com.opsu.thesaurus.fragments.HomeFragment
+import com.opsu.thesaurus.models.DataModels
 
-class SetsAdapter(private val inflater: LayoutInflater, private val sets: List<HomeFragment.SetModel>) : RecyclerView.Adapter<SetsAdapter.ViewHolder>()
+class SetsAdapter(
+    private val inflater: LayoutInflater, private val sets: List<DataModels.SetModel>
+    ) : RecyclerView.Adapter<SetsAdapter.ViewHolder>()
 {
     private lateinit var context: Context
 
@@ -20,7 +22,8 @@ class SetsAdapter(private val inflater: LayoutInflater, private val sets: List<H
             val author:TextView = view.findViewById(R.id.txtSetAuthor)
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
+    {
         context = parent.context
         return ViewHolder(inflater.inflate(
                 R.layout.sets_list_item,
@@ -30,10 +33,11 @@ class SetsAdapter(private val inflater: LayoutInflater, private val sets: List<H
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int)
+    {
         val set = sets[position]
 
-        holder.setName.text = set.name
+        holder.setName.text = set.title
         holder.termsCount.text = context.getString(R.string.terms_count, set.numOfTerms)
         holder.author.text = set.createdBy
     }

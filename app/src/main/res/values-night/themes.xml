@@ -18,10 +18,20 @@
 
     </style>
 
-    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+    <style name="TextInputLayoutStyleOnBackground" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
         <item name="android:textColorHint">@color/on_primary_var</item>
         <item name="hintTextColor">@color/on_primary_var</item>
         <item name="boxBackgroundColor">@color/background_color</item>
+        <item name="boxStrokeColor">@color/text_input_stroke_color</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="boxStrokeWidthFocused">4dp</item>
+        <item name="android:theme">@style/TextInputLayoutCursor</item>
+    </style>
+
+    <style name="TextInputLayoutStyleOnPrimary" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
+        <item name="android:textColorHint">@color/on_primary_var</item>
+        <item name="hintTextColor">@color/on_primary_var</item>
+        <item name="boxBackgroundColor">@color/primary</item>
         <item name="boxStrokeColor">@color/text_input_stroke_color</item>
         <item name="boxStrokeWidth">2dp</item>
         <item name="boxStrokeWidthFocused">4dp</item>
