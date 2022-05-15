@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import com.opsu.thesaurus.R
 import com.opsu.thesaurus.models.DataModels
 
@@ -44,47 +45,58 @@ class TermsEditAdapter(
     {
         val term = terms[position]
 
+        holder.termListener.updateBindings(holder)
+        holder.defListener.updateBindings(holder)
+
         holder.term.setText(term.term)
         holder.definition.setText(term.definition)
-
-        holder.termListener.updatePosition(holder.adapterPosition)
-        holder.defListener.updatePosition(holder.adapterPosition)
     }
 
     override fun getItemCount() = terms.size
 
-    fun getData(): MutableList<DataModels.TermModel> = terms
 
     class TermEditTextListener(termsList: MutableList<DataModels.TermModel>) : TextWatcher
     {
         private var terms = termsList
         private var position = 0
+        private lateinit var container: TextInputLayout
 
-        fun updatePosition(position: Int) {
-            this.position = position
+        fun updateBindings(holder: ViewHolder)
+        {
+            this.position = holder.adapterPosition
+            container = holder.itemView.findViewById(R.id.editTermContainer)
         }
 
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
 
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int)
+        {
             terms[position].term = p0.toString()
+            if (container.error != "")
+                container.error = ""
         }
-        override fun afterTextChanged(p0: Editable?) {}
+        override fun afterTextChanged(p0: Editable?) { }
     }
 
     class DefinitionEditTextListener(termsList: MutableList<DataModels.TermModel>) : TextWatcher
     {
         private val terms = termsList
         private var position = 0
+        private lateinit var container: TextInputLayout
 
-        fun updatePosition(position: Int) {
-            this.position = position
+        fun updateBindings(holder: ViewHolder)
+        {
+            this.position = holder.adapterPosition
+            container = holder.itemView.findViewById(R.id.editDefinitionContainer)
         }
 
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
 
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int)
+        {
             terms[position].definition = p0.toString()
+            if (container.error != "")
+                container.error = ""
         }
         override fun afterTextChanged(p0: Editable?) {}
     }

@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     ) { result ->
         if (result.resultCode == RESULT_OK) {
             val set: DataModels.SetModel = result.data?.getSerializableExtra("NewSet") as DataModels.SetModel
-            Toast.makeText(this, "Set: ${set.title}, Terms: ${set.terms.size}", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "New set added", Toast.LENGTH_SHORT).show()
 
             homeFragment.addNewSet(set)
         }
