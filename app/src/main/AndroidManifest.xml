@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Thesaurus">
         <activity
+            android:name=".ViewSetActivity"
+            android:exported="false" />
+        <activity
             android:name=".CreateSetActivity"
             android:exported="false" />
         <activity

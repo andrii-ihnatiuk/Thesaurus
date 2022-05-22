@@ -1,5 +1,6 @@
 package com.opsu.thesaurus.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.opsu.thesaurus.R
+import com.opsu.thesaurus.ViewSetActivity
 import com.opsu.thesaurus.adapters.SetsAdapter
 import com.opsu.thesaurus.database.entities.Entities
 import com.opsu.thesaurus.database.viewmodels.SetViewModel
@@ -30,12 +32,18 @@ class HomeFragment : Fragment() {
         adapter = SetsAdapter(layoutInflater)
         val setsList: RecyclerView = view.findViewById(R.id.setsList)
         setsList.adapter = adapter
+        adapter.setOnItemClickLister(object : SetsAdapter.ItemClickListener {
+            override fun onItemClick(position: Int) {
+                val intent = Intent(requireContext(), ViewSetActivity::class.java)
+                startActivity(intent)
+            }
+        })
         setsList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         // Observe for a new data from database
         mSetViewModel = ViewModelProvider(this)[SetViewModel::class.java]
         mSetViewModel.readAllData.observe(viewLifecycleOwner, Observer {
-            adapter.setData(it)
+            adapter.submitList(it)
         })
 
         return view

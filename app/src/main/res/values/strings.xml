@@ -9,6 +9,8 @@
     <string name="hint_term">Term</string>
     <string name="hint_definition">Definition</string>
 
-
     <string name="terms_count">%1$d terms</string>
+
+    <string name="term_placeholder">Term</string>
+    <string name="set_name_placeholder">Some set</string>
 </resources>

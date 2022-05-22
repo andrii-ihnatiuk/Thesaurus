@@ -15,6 +15,7 @@
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/font/work_sans_medium.xml" value="0.396875" />
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/layout/activity_create_set.xml" value="0.275" />
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/layout/activity_view_set.xml" value="0.32592592592592595" />
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/layout/fragment_home.xml" value="0.275" />
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/layout/fragment_profile.xml" value="0.275" />
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/layout/list_item.xml" value="0.275" />
@@ -22,10 +23,12 @@
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/layout/nav_bar.xml" value="0.275" />
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/layout/navbar.xml" value="0.275" />
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/layout/sets_list_item.xml" value="0.275" />
+        <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/layout/term_slider_item.xml" value="0.32592592592592595" />
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/layout/terms_edit_list_item.xml" value="0.275" />
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/layout/terms_list_item.xml" value="0.275" />
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/layout/toolbar.xml" value="0.25" />
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/layout/toolbar_new_set.xml" value="0.275" />
+        <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/layout/toolbar_view_set.xml" value="0.32592592592592595" />
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/menu/nav_menu.xml" value="0.275" />
       </map>
     </option>
