@@ -2,6 +2,7 @@ package com.opsu.thesaurus
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
@@ -9,16 +10,12 @@ import androidx.viewpager2.widget.ViewPager2
 import com.opsu.thesaurus.adapters.SliderAdapter
 import com.opsu.thesaurus.database.entities.Entities
 import com.opsu.thesaurus.databinding.ActivityViewSetBinding
+import java.lang.ClassCastException
 import kotlin.math.abs
 
 class ViewSetActivity : AppCompatActivity()
 {
     private lateinit var binding: ActivityViewSetBinding
-    private val list: List<Entities.Term> = listOf(
-        Entities.Term(0, "Term1", "def1"),
-        Entities.Term(1, "Term2", "def2"),
-        Entities.Term(2, "Term3", "def3")
-    )
     private lateinit var vp2: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -31,9 +28,29 @@ class ViewSetActivity : AppCompatActivity()
             onBackPressed()
         }
 
+        // Retrieving data from intent
+        val set: Entities.Set
+        var terms: List<Entities.Term> = emptyList()
+        val extras = intent.extras
+        if (extras != null)
+        {
+            try {
+                set = intent.getSerializableExtra("set") as Entities.Set
+                terms = intent.getSerializableExtra("terms") as List<Entities.Term>
 
+                // Setting up set title and number of terms text fields
+                binding.txtSetTitle.text = set.setTitle
+                binding.txtTermsCount.text = getString(R.string.terms_count, set.numOfTerms)
+            }
+            catch (e: ClassCastException) {
+                Log.d("ERROR", "Faced a class cast exception!")
+                onBackPressed()
+            }
+        }
+
+        // Setting up a ViewPager2
         vp2 = binding.viewPagerTermSlider
-        vp2.adapter = SliderAdapter(layoutInflater, list)
+        vp2.adapter = SliderAdapter(layoutInflater, terms)
 
         vp2.clipToPadding = false
         vp2.clipChildren = false

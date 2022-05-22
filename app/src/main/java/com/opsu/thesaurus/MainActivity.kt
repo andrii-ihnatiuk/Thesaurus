@@ -19,10 +19,12 @@ class MainActivity : AppCompatActivity() {
     private var newSetLauncher = registerForActivityResult(StartActivityForResult()
     ) { result ->
         if (result.resultCode == RESULT_OK) {
-            val set: Entities.Set = result.data?.getSerializableExtra("NewSet") as Entities.Set
+            val set: Entities.Set = result.data?.getSerializableExtra("set") as Entities.Set
+            // SUGGESTION: Perhaps we should use parcelable instead
+            val terms: List<Entities.Term> = result.data?.getSerializableExtra("terms") as List<Entities.Term>
             Toast.makeText(this, "New set added", Toast.LENGTH_SHORT).show()
 
-            homeFragment.addNewSet(set)
+            homeFragment.addNewSet(set, terms)
         }
     }
 

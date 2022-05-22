@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/primary"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="4dp"
     android:layout_marginBottom="15dp"
-    app:contentPaddingTop="20dp"
+    app:cardBackgroundColor="@color/primary"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="4dp"
+    app:contentPaddingBottom="15dp"
     app:contentPaddingLeft="15dp"
     app:contentPaddingRight="15dp"
-    app:contentPaddingBottom="15dp">
+    app:contentPaddingTop="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,21 +21,30 @@
             android:id="@+id/txtSetName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/on_primary"
             android:fontFamily="@font/roboto_black"
-            android:textSize="20sp"/>
+            android:textColor="@color/on_primary"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/txtTermsCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/on_primary" />
+            android:fontFamily="@font/roboto_medium"
+            android:textColor="@color/on_primary_var" />
+
 
         <TextView
             android:id="@+id/txtSetAuthor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/on_primary"/>
+            android:drawablePadding="5dp"
+            android:text="@string/user_name"
+            android:textColor="@color/on_primary"
+            android:gravity="center_vertical"
+            android:paddingTop="20dp"
+            app:drawableStartCompat="@drawable/ic_baseline_account_circle_24"
+            app:drawableTint="@color/on_primary" />
+
 
     </LinearLayout>
 

@@ -14,7 +14,9 @@ import com.opsu.thesaurus.R
 import com.opsu.thesaurus.ViewSetActivity
 import com.opsu.thesaurus.adapters.SetsAdapter
 import com.opsu.thesaurus.database.entities.Entities
+import com.opsu.thesaurus.database.entities.Relations
 import com.opsu.thesaurus.database.viewmodels.SetViewModel
+import java.io.Serializable
 
 class HomeFragment : Fragment() {
 
@@ -35,7 +37,12 @@ class HomeFragment : Fragment() {
         adapter.setOnItemClickLister(object : SetsAdapter.ItemClickListener {
             override fun onItemClick(position: Int) {
                 val intent = Intent(requireContext(), ViewSetActivity::class.java)
-                startActivity(intent)
+
+                mSetViewModel.getTermsBySet(adapter.currentList[position].setTitle).observe(viewLifecycleOwner, Observer {
+                    intent.putExtra("set", it[0].set as Serializable)
+                    intent.putExtra("terms", it[0].terms as Serializable)
+                    startActivity(intent)
+                })
             }
         })
         setsList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -49,8 +56,14 @@ class HomeFragment : Fragment() {
         return view
     }
 
-    fun addNewSet(set: Entities.Set) {
+    fun addNewSet(set: Entities.Set, terms: List<Entities.Term>) {
         mSetViewModel.addSet(set) // adding item to database
+        for (term in terms)
+        {
+            mSetViewModel.addTerm(term).observe(viewLifecycleOwner, Observer {
+                mSetViewModel.addSetTermCrossRef(Relations.SetTermCrossRef(set.setTitle, it.toInt()))
+            })
+        }
     }
 
 }

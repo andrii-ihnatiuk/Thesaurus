@@ -32,7 +32,7 @@
                 android:id="@+id/txtSetTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
+                android:paddingHorizontal="15dp"
                 android:fontFamily="@font/roboto_black"
                 android:textSize="25sp"
                 android:text="@string/set_name_placeholder"/>
@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingHorizontal="20dp">
+                android:paddingHorizontal="15dp">
 
                 <ImageView
                     android:layout_width="40dp"
@@ -69,12 +69,68 @@
                     android:layout_marginEnd="10dp"/>
 
                 <TextView
+                    android:id="@+id/txtTermsCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:fontFamily="@font/roboto_medium"
                     android:textSize="14sp"
                     android:text="@string/terms_count"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="15dp"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="5dp"
+                android:clipToPadding="false">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:cardElevation="2dp"
+                    android:layout_marginEnd="5dp"/>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:cardElevation="2dp"
+                    android:layout_marginStart="5dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="5dp"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="5dp"
+                android:clipToPadding="false">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:cardElevation="2dp"
+                    android:layout_marginEnd="5dp"/>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:cardElevation="2dp"
+                    android:layout_marginHorizontal="5dp"/>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:cardElevation="2dp"
+                    android:layout_marginStart="5dp"/>
 
             </LinearLayout>
 

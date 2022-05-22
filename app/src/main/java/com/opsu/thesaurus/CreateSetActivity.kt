@@ -67,9 +67,11 @@ class CreateSetActivity : AppCompatActivity() {
         if (!isCorrect) return
 
         val intent = Intent()
-        val data = Entities.Set(title, dataList.size, DEFAULT_USER_NAME)
+        val set = Entities.Set(title, dataList.size, DEFAULT_USER_NAME)
 
-        intent.putExtra("NewSet", data as Serializable)
+        intent.putExtra("set", set as Serializable)
+        intent.putExtra("terms", dataList as Serializable)
+
         setResult(RESULT_OK, intent)
         finish()
     }
@@ -86,7 +88,6 @@ class CreateSetActivity : AppCompatActivity() {
 
         for ((i, term) in terms.withIndex())
         {
-            Log.d("pos", i.toString())
             val vh = termsList.findViewHolderForAdapterPosition(i)
 
             if (vh != null)

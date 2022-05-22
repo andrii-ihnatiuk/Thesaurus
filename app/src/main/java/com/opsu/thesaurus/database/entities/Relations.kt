@@ -9,7 +9,7 @@ import androidx.room.Relation
 class Relations
 {
     // M to N relation table
-    @Entity(primaryKeys = ["setId", "termId"])
+    @Entity(primaryKeys = ["setTitle", "termId"])
     data class SetTermCrossRef(
         val setTitle: String,
         val termId: Int
@@ -21,7 +21,11 @@ class Relations
         @Relation(
             parentColumn = "setTitle",
             entityColumn = "termId",
-            associateBy = Junction(SetTermCrossRef::class)
+            associateBy = Junction(
+                value = SetTermCrossRef::class,
+                parentColumn = "setTitle",
+                entityColumn = "termId"
+            )
         )
         val terms: List<Entities.Term>
     )
