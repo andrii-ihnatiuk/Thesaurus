@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.opsu.thesaurus.R
-import com.opsu.thesaurus.models.DataModels
+import com.opsu.thesaurus.database.entities.Entities
 
 class TermsEditAdapter(
-    private val inflater: LayoutInflater, private val terms: MutableList<DataModels.TermModel>
+    private val inflater: LayoutInflater, private val terms: MutableList<Entities.Term>
     ) : RecyclerView.Adapter<TermsEditAdapter.ViewHolder>()
 {
 
@@ -55,7 +55,7 @@ class TermsEditAdapter(
     override fun getItemCount() = terms.size
 
 
-    class TermEditTextListener(termsList: MutableList<DataModels.TermModel>) : TextWatcher
+    class TermEditTextListener(termsList: MutableList<Entities.Term>) : TextWatcher
     {
         private var terms = termsList
         private var position = 0
@@ -78,7 +78,7 @@ class TermsEditAdapter(
         override fun afterTextChanged(p0: Editable?) { }
     }
 
-    class DefinitionEditTextListener(termsList: MutableList<DataModels.TermModel>) : TextWatcher
+    class DefinitionEditTextListener(termsList: MutableList<Entities.Term>) : TextWatcher
     {
         private val terms = termsList
         private var position = 0

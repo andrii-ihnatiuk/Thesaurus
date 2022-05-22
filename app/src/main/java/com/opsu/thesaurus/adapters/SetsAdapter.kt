@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.opsu.thesaurus.R
-import com.opsu.thesaurus.models.DataModels
+import com.opsu.thesaurus.database.entities.Entities
 
 class SetsAdapter(
-    private val inflater: LayoutInflater, private val sets: List<DataModels.SetModel>
+    private val inflater: LayoutInflater
     ) : RecyclerView.Adapter<SetsAdapter.ViewHolder>()
 {
     private lateinit var context: Context
+    private var sets : List<Entities.Set> = emptyList()
 
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
         {
@@ -37,12 +38,18 @@ class SetsAdapter(
     {
         val set = sets[position]
 
-        holder.setName.text = set.title
+        holder.setName.text = set.setTitle
         holder.termsCount.text = context.getString(R.string.terms_count, set.numOfTerms)
         holder.author.text = set.createdBy
     }
 
     override fun getItemCount(): Int = sets.size
+
+    fun setData(data: List<Entities.Set>)
+    {
+        sets = data
+        this.notifyDataSetChanged()
+    }
 
 
 }

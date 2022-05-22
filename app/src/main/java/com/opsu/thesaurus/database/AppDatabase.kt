@@ -1,0 +1,38 @@
+package com.opsu.thesaurus.database
+
+import android.content.Context
+import androidx.room.Database
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import com.opsu.thesaurus.database.daos.SetDao
+import com.opsu.thesaurus.database.entities.Entities
+
+@Database(entities = [Entities.Set::class, Entities.Term::class], version = 1)
+abstract class AppDatabase : RoomDatabase()
+{
+    abstract fun setDao(): SetDao
+
+    companion object
+    {
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
+
+        fun getDatabase(context: Context): AppDatabase
+        {
+            val tempInstance = INSTANCE
+            if (tempInstance != null)
+                return tempInstance
+            synchronized(this)
+            {
+                val instance = Room.databaseBuilder(
+                    context,
+                    AppDatabase::class.java,
+                    "app_database"
+                ).build()
+                INSTANCE = instance
+                return instance
+            }
+        }
+    }
+
+}

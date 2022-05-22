@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputLayout
 import com.opsu.thesaurus.adapters.TermsEditAdapter
 import com.opsu.thesaurus.databinding.ActivityCreateSetBinding
-import com.opsu.thesaurus.models.DataModels
+import com.opsu.thesaurus.database.entities.Entities
 import java.io.Serializable
 
 class CreateSetActivity : AppCompatActivity() {
@@ -22,9 +22,9 @@ class CreateSetActivity : AppCompatActivity() {
     private lateinit var termsList: RecyclerView
     private lateinit var binding: ActivityCreateSetBinding
 
-    private val dataList: MutableList<DataModels.TermModel> = mutableListOf(
-        DataModels.TermModel("", ""),
-        DataModels.TermModel("", "")
+    private val dataList: MutableList<Entities.Term> = mutableListOf(
+        Entities.Term(0, "", ""),
+        Entities.Term(0, "", "")
     )
     private var title: String = ""
 
@@ -67,14 +67,14 @@ class CreateSetActivity : AppCompatActivity() {
         if (!isCorrect) return
 
         val intent = Intent()
-        val data = DataModels.SetModel(title, dataList.size, DEFAULT_USER_NAME, ArrayList(dataList))
+        val data = Entities.Set(title, dataList.size, DEFAULT_USER_NAME)
 
         intent.putExtra("NewSet", data as Serializable)
         setResult(RESULT_OK, intent)
         finish()
     }
 
-    private fun checkInput(terms: MutableList<DataModels.TermModel>): Boolean
+    private fun checkInput(terms: MutableList<Entities.Term>): Boolean
     {
         var isCorrect = true
 
