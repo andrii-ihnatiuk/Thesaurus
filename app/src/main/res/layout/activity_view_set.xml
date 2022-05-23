@@ -9,7 +9,7 @@
 
     <include layout="@layout/toolbar_view_set" android:id="@+id/toolbar"/>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -23,7 +23,7 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPagerTermSlider"
                 android:layout_width="match_parent"
-                android:layout_height="230dp"
+                android:layout_height="250dp"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="5dp"
                 android:layout_marginBottom="20dp"/>
@@ -32,16 +32,17 @@
                 android:id="@+id/txtSetTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="15dp"
                 android:fontFamily="@font/roboto_black"
-                android:textSize="25sp"
-                android:text="@string/set_name_placeholder"/>
+                android:paddingHorizontal="15dp"
+                android:text="@string/set_name_placeholder"
+                android:textSize="25sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingHorizontal="15dp">
+                android:paddingHorizontal="15dp"
+                android:layout_marginTop="5dp">
 
                 <ImageView
                     android:layout_width="40dp"
@@ -134,9 +135,26 @@
 
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/cards_title"
+                android:textSize="20sp"
+                android:fontFamily="@font/roboto_black"
+                android:paddingHorizontal="15dp"
+                android:layout_marginTop="20dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/termsList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="10dp"
+                android:clipToPadding="false"/>
+
         </LinearLayout>
 
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

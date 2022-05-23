@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         homeFragment = HomeFragment()
         val profileFragment = ProfileFragment()
 
-        setCurrentFragment(homeFragment)
+        setCurrentFragment(homeFragment) // initial fragment is home fragment
 
         binding.bottomNav.setOnItemSelectedListener {
             when (it.itemId) {

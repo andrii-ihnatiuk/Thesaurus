@@ -8,6 +8,7 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.opsu.thesaurus.adapters.SliderAdapter
+import com.opsu.thesaurus.adapters.TermsAdapter
 import com.opsu.thesaurus.database.entities.Entities
 import com.opsu.thesaurus.databinding.ActivityViewSetBinding
 import java.lang.ClassCastException
@@ -65,5 +66,10 @@ class ViewSetActivity : AppCompatActivity()
         })
 
         vp2.setPageTransformer(pageTransformer)
+
+        // Setting up bottom list of terms cards
+        binding.termsList.adapter = TermsAdapter(layoutInflater, terms)
+        binding.termsList.layoutManager = TermsAdapter.NoScrollLinearLayoutManager(this)
+
     }
 }

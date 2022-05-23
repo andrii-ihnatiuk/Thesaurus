@@ -13,8 +13,8 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:fontFamily="@font/roboto"
-        android:textSize="20sp"
-        android:text="@string/term_placeholder"
+        android:textSize="25sp"
+        android:text="@string/hint_term"
         android:textAlignment="center"/>
 
 
