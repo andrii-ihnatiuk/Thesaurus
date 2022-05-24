@@ -19,10 +19,10 @@ class SetViewModel(application: Application) : AndroidViewModel(application)
 
     init {
         dao = AppDatabase.getDatabase(application).setDao()
-        readAllData = dao.getAll()
+        readAllData = dao.getAllSets()
     }
 
-    // adding to db in a background thread
+    // Adding a new set
     fun addSet(set: Entities.Set)
     {
         viewModelScope.launch(Dispatchers.IO)
@@ -31,6 +31,7 @@ class SetViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    // Adding only one term per query
     fun addTerm(term: Entities.Term): LiveData<Long>
     {
         val result = MutableLiveData<Long>()
@@ -41,6 +42,7 @@ class SetViewModel(application: Application) : AndroidViewModel(application)
         return result
     }
 
+    // Adding list of terms by one query
     fun addTerms(terms: List<Entities.Term>): LiveData<List<Long>>
     {
         val result = MutableLiveData<List<Long>>()
@@ -51,6 +53,7 @@ class SetViewModel(application: Application) : AndroidViewModel(application)
         return result
     }
 
+    // Adding M:N (Set - Term) relation row
     fun addSetTermCrossRef(row: Relations.SetTermCrossRef)
     {
         viewModelScope.launch(Dispatchers.IO)
@@ -59,9 +62,21 @@ class SetViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun getTermsBySet(setTitle: String) : LiveData<List<Relations.SetWithTerms>>
+    // Getting every set with all its terms
+    fun getAllSetsWithTerms() : LiveData<List<Relations.SetWithTerms>>
     {
         val result = MutableLiveData<List<Relations.SetWithTerms>>()
+        viewModelScope.launch(Dispatchers.IO)
+        {
+            result.postValue(dao.getAllSetsWithTerms())
+        }
+        return result
+    }
+
+    // Getting all terms by set title
+    fun getTermsBySet(setTitle: String) : LiveData<List<Entities.Term>>
+    {
+        val result = MutableLiveData<List<Entities.Term>>()
         viewModelScope.launch(Dispatchers.IO)
         {
             result.postValue(dao.getTermsBySet(setTitle))

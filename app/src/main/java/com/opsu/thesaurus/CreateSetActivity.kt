@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,10 +15,10 @@ import com.opsu.thesaurus.database.entities.Entities
 import java.io.Serializable
 
 class CreateSetActivity : AppCompatActivity() {
-    val DEFAULT_USER_NAME = "You"
-    val FIELD_REQUIRED = "This field is required"
-    val TITLE_NOT_SET = "Must specify title"
+    private val DEFAULT_USER_NAME = "You"
+
     private lateinit var termsList: RecyclerView
+    private lateinit var adapter: TermsEditAdapter
     private lateinit var binding: ActivityCreateSetBinding
 
     private val dataList: MutableList<Entities.Term> = mutableListOf(
@@ -34,7 +33,7 @@ class CreateSetActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        val adapter = TermsEditAdapter(layoutInflater, dataList)
+        adapter = TermsEditAdapter(layoutInflater, dataList)
         termsList = binding.termsList
         termsList.adapter = adapter
         termsList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -57,6 +56,11 @@ class CreateSetActivity : AppCompatActivity() {
 
         binding.toolbar.toolbarDone.setOnClickListener {
             formResult()
+        }
+
+        binding.fabAdd.setOnClickListener {
+            dataList.add(Entities.Term(0, "", ""))
+            adapter.notifyNewTermInserted(dataList.size)
         }
 
     }
@@ -82,7 +86,7 @@ class CreateSetActivity : AppCompatActivity() {
 
         if (title.isBlank())
         {
-            binding.txtTitleContainer.error = TITLE_NOT_SET
+            binding.txtTitleContainer.error = TermsEditAdapter.TITLE_NOT_SET
             isCorrect = false
         }
 
@@ -95,19 +99,29 @@ class CreateSetActivity : AppCompatActivity() {
                 if (term.term.isBlank())
                 {
                     vh.itemView.findViewById<TextInputLayout>(R.id.editTermContainer)
-                        .error = FIELD_REQUIRED
+                        .error = TermsEditAdapter.FIELD_REQUIRED
+                    adapter.errPositions[i][0] = true // this item has an error
                     isCorrect = false
                 }
                 if (term.definition.isBlank())
                 {
                     vh.itemView.findViewById<TextInputLayout>(R.id.editDefinitionContainer)
-                        .error = FIELD_REQUIRED
+                        .error = TermsEditAdapter.FIELD_REQUIRED
+                    adapter.errPositions[i][1] = true // this item has an error
                     isCorrect = false
                 }
             }
+            else
+            {
+                if (term.term.isBlank())
+                    adapter.errPositions[i][0] = true
+                if (term.definition.isBlank())
+                    adapter.errPositions[i][1] = true
+                adapter.notifyItemChanged(i)
+            }
         }
         if (!isCorrect)
-            Toast.makeText(this, "At least 2 terms are required", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "You must fill in all fields!", Toast.LENGTH_SHORT).show()
 
         return isCorrect
     }

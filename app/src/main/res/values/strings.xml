@@ -8,6 +8,7 @@
     <string name="hint_title">Title</string>
     <string name="hint_term">Term</string>
     <string name="hint_definition">Definition</string>
+    <string name="fab_add">Add term</string>
 
     <string name="terms_count">%1$d terms</string>
     <string name="cards_title">Cards</string>

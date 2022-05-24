@@ -40,7 +40,7 @@ class SetsAdapter(
     class DiffCallback : DiffUtil.ItemCallback<Entities.Set>()
     {
         override fun areItemsTheSame(oldItem: Entities.Set, newItem: Entities.Set): Boolean {
-            return oldItem.setTitle == newItem.setTitle // comparing unique id in table
+            return oldItem.setTitle == newItem.setTitle // comparing unique id in a table
         }
         // called if areItemsTheSame == true
         override fun areContentsTheSame(oldItem: Entities.Set, newItem: Entities.Set): Boolean {

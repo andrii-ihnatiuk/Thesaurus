@@ -5,6 +5,8 @@
       <map>
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/drawable/bottom_nav_item_tint.xml" value="0.3615" />
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/drawable/ic_arrow_back.xml" value="0.3615" />
+        <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/drawable/ic_baseline_add_circle_outline_24.xml" value="0.3675" />
+        <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/drawable/ic_plus.xml" value="0.3675" />
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/drawable/list_item.xml" value="0.3615" />
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/drawable/ripple.xml" value="0.3615" />
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/drawable/ripple_small.xml" value="0.3615" />
@@ -31,6 +33,8 @@
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/layout/toolbar_new_set.xml" value="0.275" />
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/layout/toolbar_view_set.xml" value="0.32592592592592595" />
         <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/menu/nav_menu.xml" value="0.275" />
+        <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3675" />
+        <entry key="..\:/Programming/Android/Thesaurus/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3675" />
       </map>
     </option>
   </component>

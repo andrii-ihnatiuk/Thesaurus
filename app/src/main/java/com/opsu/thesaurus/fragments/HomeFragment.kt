@@ -2,11 +2,11 @@ package com.opsu.thesaurus.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,32 +37,34 @@ class HomeFragment : Fragment() {
         adapter.setOnItemClickLister(object : SetsAdapter.ItemClickListener {
             override fun onItemClick(position: Int) {
                 val intent = Intent(requireContext(), ViewSetActivity::class.java)
+                val clickedSet = adapter.currentList[position]
 
-                mSetViewModel.getTermsBySet(adapter.currentList[position].setTitle).observe(viewLifecycleOwner, Observer {
-                    intent.putExtra("set", it[0].set as Serializable)
-                    intent.putExtra("terms", it[0].terms as Serializable)
+                mSetViewModel.getTermsBySet(clickedSet.setTitle).observe(viewLifecycleOwner) {
+                    Log.d("terms", it.toString())
+                    intent.putExtra("set", clickedSet as Serializable)
+                    intent.putExtra("terms", it as Serializable)
                     startActivity(intent)
-                })
+                }
             }
         })
         setsList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         // Observe for a new data from database
         mSetViewModel = ViewModelProvider(this)[SetViewModel::class.java]
-        mSetViewModel.readAllData.observe(viewLifecycleOwner, Observer {
+        mSetViewModel.readAllData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-        })
+        }
 
         return view
     }
 
     fun addNewSet(set: Entities.Set, terms: List<Entities.Term>) {
         mSetViewModel.addSet(set) // adding item to database
-        for (term in terms)
-        {
-            mSetViewModel.addTerm(term).observe(viewLifecycleOwner, Observer {
+        Log.d("terms", terms.toString())
+        mSetViewModel.addTerms(terms).observe(viewLifecycleOwner) { idList ->
+            idList.forEach {
                 mSetViewModel.addSetTermCrossRef(Relations.SetTermCrossRef(set.setTitle, it.toInt()))
-            })
+            }
         }
     }
 

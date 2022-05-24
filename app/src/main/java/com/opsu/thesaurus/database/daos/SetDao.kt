@@ -21,19 +21,19 @@ interface SetDao {
     suspend fun addSetTermCrossRef(join: Relations.SetTermCrossRef): Long
 
     @Transaction
-    @Query("SELECT * FROM `Set` WHERE setTitle = :setTitle")
-    suspend fun getTermsBySet(setTitle: String): List<Relations.SetWithTerms>
+    @Query("SELECT * FROM 'Set'")
+    suspend fun getAllSetsWithTerms(): List<Relations.SetWithTerms>
 
-//    @Query("SELECT Term.termId, Term.term, Term.definition FROM 'Term' INNER JOIN 'SetTermCrossRef' ON ('Term.termId' = 'SetTermCrossRef.termId' AND 'SetTermCrossRef.setTitle' = :setTitle)")
-//    suspend fun getTermsOnSet(setTitle: String): List<Entities.Term>
-//
-//    @Query("SELECT * FROM Term")
-//    suspend fun getAllTerms(): List<Entities.Term>
-//
-//    @Query("SELECT * FROM SetTermCrossRef")
-//    suspend fun getAllSetTermCross(): List<Relations.SetTermCrossRef>
+    @Query("SELECT Term.termId, Term.term, Term.definition FROM Term INNER JOIN SetTermCrossRef ON (Term.termId = SetTermCrossRef.termId AND SetTermCrossRef.setTitle = :setTitle) ORDER BY Term.termId ASC")
+    suspend fun getTermsBySet(setTitle: String): List<Entities.Term>
+
+    @Query("SELECT * FROM Term")
+    suspend fun getAllTerms(): List<Entities.Term>
 
     @Query("SELECT * FROM `Set`")
-    fun getAll(): LiveData<List<Entities.Set>>
+    fun getAllSets(): LiveData<List<Entities.Set>>
+
+    @Query("SELECT * FROM SetTermCrossRef")
+    suspend fun getAllSetTermCross(): List<Relations.SetTermCrossRef>
 
 }
