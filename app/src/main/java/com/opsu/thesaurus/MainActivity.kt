@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import com.opsu.thesaurus.databinding.ActivityMainBinding
 import com.opsu.thesaurus.fragments.HomeFragment
 import com.opsu.thesaurus.fragments.ProfileFragment
-import com.opsu.thesaurus.database.entities.Entities
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,12 +18,7 @@ class MainActivity : AppCompatActivity() {
     private var newSetLauncher = registerForActivityResult(StartActivityForResult()
     ) { result ->
         if (result.resultCode == RESULT_OK) {
-            val set: Entities.Set = result.data?.getSerializableExtra("set") as Entities.Set
-            // SUGGESTION: Perhaps we should use parcelable instead
-            val terms: List<Entities.Term> = result.data?.getSerializableExtra("terms") as List<Entities.Term>
             Toast.makeText(this, "New set added", Toast.LENGTH_SHORT).show()
-
-            homeFragment.addNewSet(set, terms)
         }
     }
 
@@ -49,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createNewSet() {
-        val intent = Intent(this,  CreateSetActivity::class.java)
+        val intent = Intent(this,  ManageSetActivity::class.java)
         newSetLauncher.launch(intent)
     }
 

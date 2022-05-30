@@ -5,13 +5,15 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.opsu.thesaurus.database.daos.SetDao
+import com.opsu.thesaurus.database.daos.TermDao
 import com.opsu.thesaurus.database.entities.Entities
 import com.opsu.thesaurus.database.entities.Relations
 
-@Database(entities = [Entities.Set::class, Entities.Term::class, Relations.SetTermCrossRef::class], version = 1)
+@Database(entities = [Entities.Set::class, Entities.Term::class], version = 1)
 abstract class AppDatabase : RoomDatabase()
 {
     abstract fun setDao(): SetDao
+    abstract fun termDao(): TermDao
 
     companion object
     {

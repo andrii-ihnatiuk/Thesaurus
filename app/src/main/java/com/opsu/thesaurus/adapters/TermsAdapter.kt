@@ -5,14 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.opsu.thesaurus.R
 import com.opsu.thesaurus.database.entities.Entities
 
 class TermsAdapter(
-    private val inflater: LayoutInflater, private val list: List<Entities.Term>
-): RecyclerView.Adapter<TermsAdapter.TermsViewHolder>()
+    private val inflater: LayoutInflater
+): ListAdapter<Entities.Term, TermsAdapter.TermsViewHolder>(AsyncDifferConfig.Builder(DiffCallback()).build())
 {
     class TermsViewHolder(view: View): RecyclerView.ViewHolder(view)
     {
@@ -28,12 +27,23 @@ class TermsAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: TermsViewHolder, position: Int) {
-        holder.txtTerm.text = list[position].term
-        holder.txtDefinition.text = list[position].definition
+    class DiffCallback : DiffUtil.ItemCallback<Entities.Term>()
+    {
+        override fun areItemsTheSame(oldItem: Entities.Term, newItem: Entities.Term): Boolean {
+            return oldItem.termId == newItem.termId // comparing unique id in a table
+        }
+        // called if areItemsTheSame == true
+        override fun areContentsTheSame(oldItem: Entities.Term, newItem: Entities.Term): Boolean {
+            return oldItem.term == newItem.term && oldItem.definition == newItem.definition
+        }
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun onBindViewHolder(holder: TermsViewHolder, position: Int) {
+        holder.txtTerm.text = currentList[position].term
+        holder.txtDefinition.text = currentList[position].definition
+    }
+
+    override fun getItemCount(): Int = currentList.size
 
 
     class NoScrollLinearLayoutManager(private val context: Context): LinearLayoutManager(context)

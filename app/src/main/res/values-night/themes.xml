@@ -16,6 +16,8 @@
         <item name="android:colorBackground">@color/background_color</item>
         <item name="android:textColor">@color/on_primary</item>
 
+        <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
+
     </style>
 
     <style name="TextInputLayoutStyleOnBackground" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
@@ -52,6 +54,12 @@
     <style name="ShapeAppearanceOverlayExtended" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">10dp</item>
+    </style>
+
+    <style name="MyActionButtonOverflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_more</item>
+        <item name="android:background">@color/background_color</item>
+        <item name="android:tint">@color/on_primary</item>
     </style>
 
 

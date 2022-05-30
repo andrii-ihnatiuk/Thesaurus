@@ -4,11 +4,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.AsyncDifferConfig
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.opsu.thesaurus.R
 import com.opsu.thesaurus.database.entities.Entities
 
-class SliderAdapter(private val inflater: LayoutInflater, private val list: List<Entities.Term>): RecyclerView.Adapter<SliderAdapter.SliderViewHolder>(){
+class SliderAdapter(
+    private val inflater: LayoutInflater
+): ListAdapter<Entities.Term, SliderAdapter.SliderViewHolder>(AsyncDifferConfig.Builder(TermsAdapter.DiffCallback()).build())
+{
 
     class SliderViewHolder(view: View): RecyclerView.ViewHolder(view)
     {
@@ -24,9 +29,9 @@ class SliderAdapter(private val inflater: LayoutInflater, private val list: List
     }
 
     override fun onBindViewHolder(holder: SliderViewHolder, position: Int) {
-        holder.txtItem.text = list[position].term
+        holder.txtItem.text = currentList[position].term
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = currentList.size
 
 }

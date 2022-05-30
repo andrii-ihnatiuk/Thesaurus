@@ -42,7 +42,7 @@
             android:textColor="@color/on_primary"
             android:gravity="center_vertical"
             android:paddingTop="20dp"
-            app:drawableStartCompat="@drawable/ic_baseline_account_circle_24"
+            app:drawableStartCompat="@drawable/ic_account"
             app:drawableTint="@color/on_primary" />
 
 

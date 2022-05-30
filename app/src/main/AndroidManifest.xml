@@ -13,7 +13,7 @@
             android:name=".ViewSetActivity"
             android:exported="false" />
         <activity
-            android:name=".CreateSetActivity"
+            android:name=".ManageSetActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
