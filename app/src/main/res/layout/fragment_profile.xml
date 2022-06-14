@@ -36,13 +36,16 @@
     </RelativeLayout>
 
     <LinearLayout
+        android:id="@+id/nameField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="5dp"
         android:paddingVertical="10dp"
         android:paddingHorizontal="20dp"
-        android:background="@color/primary"
-        android:orientation="vertical">
+        android:background="@drawable/ripple_profile_items"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true">
 
         <TextView
             android:layout_width="match_parent"
@@ -52,6 +55,7 @@
             android:text="@string/user_name" />
 
         <TextView
+            android:id="@+id/txtProfileName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/user_name_placeholder"

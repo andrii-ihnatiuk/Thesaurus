@@ -37,6 +37,7 @@ class HomeFragment : Fragment() {
                 val clickedSet = adapter.currentList[position]
 
                 intent.putExtra("setId", clickedSet.setId)
+                intent.putExtra("userName", clickedSet.createdBy)
                 startActivity(intent)
             }
         })

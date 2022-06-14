@@ -34,6 +34,7 @@ class ManageSetActivity : AppCompatActivity() {
     private lateinit var initialDataList: List<Entities.Term>
 
     private var title: String = ""
+    private val nameKey = "name"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,6 +99,12 @@ class ManageSetActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        setResult(RESULT_CANCELED)
+        finish()
+    }
+
     private fun updateDb()
     {
         val isCorrect = checkInput(dataList)
@@ -149,8 +156,10 @@ class ManageSetActivity : AppCompatActivity() {
                 return
             }
 
+            val userName: String? = getSharedPreferences("UserName", MODE_PRIVATE).getString(nameKey, null)
+
             val DEFAULT_USER_NAME = resources.getString(R.string.def_username)
-            val set = Entities.Set(title.trim(), dataList.size, DEFAULT_USER_NAME)
+            val set = Entities.Set(title.trim(), dataList.size, userName ?: DEFAULT_USER_NAME)
             mManageSetViewModel.addSetWithTerms(set, dataList).invokeOnCompletion {
                 val intent = Intent()
                 setResult(RESULT_OK, intent)
