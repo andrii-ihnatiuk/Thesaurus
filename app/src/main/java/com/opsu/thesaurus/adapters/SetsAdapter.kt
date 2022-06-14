@@ -1,40 +1,76 @@
 package com.opsu.thesaurus.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.AsyncDifferConfig
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.opsu.thesaurus.R
-import com.opsu.thesaurus.fragments.HomeFragment
+import com.opsu.thesaurus.database.entities.Entities
 
-class SetsAdapter(private val inflater: LayoutInflater, private val sets: List<HomeFragment.SetModel>) : RecyclerView.Adapter<SetsAdapter.ViewHolder>()
+class SetsAdapter(
+    private val inflater: LayoutInflater
+    ) : ListAdapter<Entities.Set, SetsAdapter.ViewHolder>(AsyncDifferConfig.Builder(DiffCallback()).build())
 {
-        class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
-        {
-            val setName: TextView = view.findViewById(R.id.txtSetName)
-            val termsCount: TextView = view.findViewById(R.id.txtTermsCount)
-            val author:TextView = view.findViewById(R.id.txtSetAuthor)
-        }
+    private lateinit var context: Context
+    private lateinit var mListener: ItemClickListener
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    interface ItemClickListener {
+        fun onItemClick(position: Int)
+    }
+
+
+    class ViewHolder(view: View, clickListener: ItemClickListener) : RecyclerView.ViewHolder(view)
+    {
+        val setName: TextView = view.findViewById(R.id.txtSetName)
+        val termsCount: TextView = view.findViewById(R.id.txtTermsCount)
+        val author:TextView = view.findViewById(R.id.txtSetAuthor)
+
+        init {
+            view.setOnClickListener {
+                clickListener.onItemClick(adapterPosition)
+            }
+        }
+    }
+
+    class DiffCallback : DiffUtil.ItemCallback<Entities.Set>()
+    {
+        override fun areItemsTheSame(oldItem: Entities.Set, newItem: Entities.Set): Boolean {
+            return oldItem.setTitle == newItem.setTitle // comparing unique id in a table
+        }
+        // called if areItemsTheSame == true
+        override fun areContentsTheSame(oldItem: Entities.Set, newItem: Entities.Set): Boolean {
+            return oldItem.createdBy == newItem.createdBy && oldItem.numOfTerms == newItem.numOfTerms
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
+    {
+        context = parent.context
         return ViewHolder(inflater.inflate(
-                R.layout.list_item,
+                R.layout.sets_list_item,
                 parent,
                 false
-            )
+            ), mListener
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val set = sets[position]
+    override fun onBindViewHolder(holder: ViewHolder, position: Int)
+    {
+        val set = getItem(position)
 
-        holder.setName.text = set.name
-        holder.termsCount.text = set.numOfTerms.toString()
-        holder.author.text = set.createdBy;
+        holder.setName.text = set.setTitle
+        holder.termsCount.text = context.getString(R.string.terms_count, set.numOfTerms)
+        holder.author.text = set.createdBy
     }
 
-    override fun getItemCount(): Int = sets.size
-
+    fun setOnItemClickLister(lister: ItemClickListener)
+    {
+        mListener = lister
+    }
 
 }
