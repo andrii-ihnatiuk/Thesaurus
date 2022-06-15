@@ -25,6 +25,7 @@ import androidx.fragment.app.DialogFragment
 import com.opsu.thesaurus.database.viewmodels.ViewSetViewModel
 import com.opsu.thesaurus.database.viewmodels.ViewSetViewModelFactory
 import com.opsu.thesaurus.fragments.dialogs.DeleteSetDialog
+import com.opsu.thesaurus.game_activities.WordScrambleActivity
 import kotlin.math.abs
 
 class ViewSetActivity : AppCompatActivity(), DeleteSetDialog.DeleteSetDialogListener
@@ -136,6 +137,12 @@ class ViewSetActivity : AppCompatActivity(), DeleteSetDialog.DeleteSetDialogList
                 Log.d("ERROR", "Faced an exception!")
                 onBackPressed()
             }
+        }
+
+        binding.wordScrambleCard.setOnClickListener {
+            val intent = Intent(this, WordScrambleActivity::class.java)
+            intent.putParcelableArrayListExtra("terms", ArrayList(terms))
+            startActivity(intent)
         }
 
     }
