@@ -42,7 +42,7 @@
         android:layout_marginVertical="5dp"
         android:paddingVertical="10dp"
         android:paddingHorizontal="20dp"
-        android:background="@drawable/ripple_profile_items"
+        android:background="@drawable/ripple_list_items"
         android:orientation="vertical"
         android:clickable="true"
         android:focusable="true">

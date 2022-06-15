@@ -5,6 +5,7 @@ import android.animation.AnimatorSet
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
@@ -26,6 +27,7 @@ import com.opsu.thesaurus.database.viewmodels.ViewSetViewModel
 import com.opsu.thesaurus.database.viewmodels.ViewSetViewModelFactory
 import com.opsu.thesaurus.fragments.dialogs.DeleteSetDialog
 import com.opsu.thesaurus.game_activities.WordScrambleActivity
+import com.opsu.thesaurus.game_activities.SelectTranslationActivity
 import kotlin.math.abs
 
 class ViewSetActivity : AppCompatActivity(), DeleteSetDialog.DeleteSetDialogListener
@@ -90,6 +92,18 @@ class ViewSetActivity : AppCompatActivity(), DeleteSetDialog.DeleteSetDialogList
             }
         })
 
+        binding.selectTranslationCard.setOnClickListener {
+            val intent = Intent(this, SelectTranslationActivity::class.java)
+            intent.putParcelableArrayListExtra("terms", ArrayList(terms))
+            startActivity(intent)
+        }
+
+        binding.wordScrambleCard.setOnClickListener {
+            val intent = Intent(this, WordScrambleActivity::class.java)
+            intent.putParcelableArrayListExtra("terms", ArrayList(terms))
+            startActivity(intent)
+        }
+
         vp2.clipToPadding = false
         vp2.clipChildren = false
         vp2.offscreenPageLimit = 3
@@ -137,12 +151,6 @@ class ViewSetActivity : AppCompatActivity(), DeleteSetDialog.DeleteSetDialogList
                 Log.d("ERROR", "Faced an exception!")
                 onBackPressed()
             }
-        }
-
-        binding.wordScrambleCard.setOnClickListener {
-            val intent = Intent(this, WordScrambleActivity::class.java)
-            intent.putParcelableArrayListExtra("terms", ArrayList(terms))
-            startActivity(intent)
         }
 
     }

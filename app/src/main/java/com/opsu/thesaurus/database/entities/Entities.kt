@@ -1,10 +1,10 @@
 package com.opsu.thesaurus.database.entities
 
 import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
 class Entities

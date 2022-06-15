@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Thesaurus">
         <activity
+            android:name=".game_activities.SelectTranslationActivity"
+            android:exported="false" />
+        <activity
             android:name=".game_activities.WordScrambleActivity"
             android:exported="false" />
         <activity

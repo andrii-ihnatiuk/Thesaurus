@@ -16,5 +16,22 @@
     <string name="terms_count">%1$d terms</string>
     <string name="cards_title">Cards</string>
 
+    <string name="card_game1">Learn</string>
+    <string name="card_game2">Word scramble</string>
+
     <string name="set_name_placeholder">Some set</string>
+
+    <string name="game_select_translation_title">Learn</string>
+    <string name="game_nice">Nice!</string>
+    <string name="game_wrong">You are wrong</string>
+    <string name="game_result_title_good">Congratulations!</string>
+    <string name="game_result_title_bad">You can do better…</string>
+    <string name="game_result_info">You have answered %1$d/%2$d correctly!</string>
+
+    <string name="title_correct_answer">correct answer:</string>
+    <string name="title_wrong_answer">your answer:</string>
+
+    <string name="btn_continue">Continue</string>
+    <string name="btn_repeat_game">Learn again</string>
+    <string name="btn_end_game">Finish</string>
 </resources>
