@@ -1,8 +1,10 @@
 package com.opsu.thesaurus.database.entities
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
 class Entities
@@ -29,12 +31,13 @@ class Entities
             )
         ]
     )
+    @Parcelize
     data class Term(
         var term: String,
         var definition: String,
         var setIdRef: Long? = null,
         @PrimaryKey(autoGenerate = true)
         val termId: Long? = null
-    ) : Serializable
+    ) : Parcelable
 
 }

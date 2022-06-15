@@ -16,4 +16,6 @@
     <color name="on_primary_var">#5d6574</color>
     <color name="accent">#3d50fe</color>
     <color name="accent_ripple">#3343D5</color>
+    <color name="correct_answer">#1bad7a</color>
+    <color name="incorrect_answer">#ae001d</color>
 </resources>
