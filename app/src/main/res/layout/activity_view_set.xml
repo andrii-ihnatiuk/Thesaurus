@@ -145,7 +145,7 @@
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
                             android:contentDescription="@string/card_game1"
-                            android:src="@drawable/ic_rotate"
+                            android:src="@drawable/ic_wordscramble"
                             app:tint="@color/accent" />
 
                         <TextView
