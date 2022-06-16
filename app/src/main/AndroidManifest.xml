@@ -10,7 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Thesaurus">
         <activity
-            android:name=".game_activities.SelectTranslationActivity"
+            android:name=".game_activities.CorrectIncorrectActivity"
+            android:exported="false" />
+        <activity
+            android:name=".game_activities.LearnActivity"
             android:exported="false" />
         <activity
             android:name=".game_activities.WordScrambleActivity"

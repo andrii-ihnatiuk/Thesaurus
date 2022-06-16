@@ -6,15 +6,15 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.opsu.thesaurus.R
 import com.opsu.thesaurus.database.entities.Entities
-import com.opsu.thesaurus.databinding.ActivitySelectTranslationBinding
+import com.opsu.thesaurus.databinding.ActivityLearnBinding
+import com.opsu.thesaurus.fragments.GameResultFragment
 import com.opsu.thesaurus.fragments.dialogs.GameCorrectAnswerDialog
-import com.opsu.thesaurus.fragments.dialogs.GameResultDialog
 import com.opsu.thesaurus.fragments.dialogs.GameWrongAnswerDialog
 import kotlin.random.Random
 
-class SelectTranslationActivity : AppCompatActivity()
+class LearnActivity : AppCompatActivity()
 {
-    private lateinit var binding: ActivitySelectTranslationBinding
+    private lateinit var binding: ActivityLearnBinding
     private var terms: ArrayList<Entities.Term> = arrayListOf()
     private var activeTermId = 0
     private var correctAnswerId = 0
@@ -25,7 +25,7 @@ class SelectTranslationActivity : AppCompatActivity()
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
-        binding = ActivitySelectTranslationBinding.inflate(layoutInflater)
+        binding = ActivityLearnBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.toolbar.toolbarCancel.setOnClickListener {
@@ -35,7 +35,7 @@ class SelectTranslationActivity : AppCompatActivity()
         terms = intent.extras?.getParcelableArrayList<Entities.Term>("terms") as ArrayList<Entities.Term>
         terms.shuffle()
 
-        binding.toolbar.txtGameTitle.text = resources.getString(R.string.game_select_translation_title)
+        binding.toolbar.txtGameTitle.text = resources.getString(R.string.card_game1)
         binding.toolbar.imgGameTitle.setImageResource(R.drawable.ic_rotate)
         binding.toolbar.progressIndicator.apply {
             this.max = terms.size
@@ -83,8 +83,8 @@ class SelectTranslationActivity : AppCompatActivity()
 
     private fun showResultWindow()
     {
-        val dialog = GameResultDialog(correctAnswers, terms.size)
-        dialog.show(supportFragmentManager, "gameResult")
+        val fragment = GameResultFragment(correctAnswers, terms.size)
+        fragment.show(supportFragmentManager)
     }
 
     private fun hideTextViews()

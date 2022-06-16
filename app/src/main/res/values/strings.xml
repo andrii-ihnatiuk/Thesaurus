@@ -18,12 +18,14 @@
 
     <string name="card_game1">Learn</string>
     <string name="card_game2">Word scramble</string>
+    <string name="card_game3">True/False</string>
 
     <string name="set_name_placeholder">Some set</string>
 
-    <string name="game_select_translation_title">Learn</string>
     <string name="game_nice">Nice!</string>
     <string name="game_wrong">You are wrong</string>
+    <string name="game_correct">Correct</string>
+    <string name="game_incorrect">Incorrect</string>
     <string name="game_result_title_good">Congratulations!</string>
     <string name="game_result_title_bad">You can do better…</string>
     <string name="game_result_info">You have answered %1$d/%2$d correctly!</string>

@@ -5,7 +5,6 @@ import android.animation.AnimatorSet
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Parcelable
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
@@ -26,8 +25,9 @@ import androidx.fragment.app.DialogFragment
 import com.opsu.thesaurus.database.viewmodels.ViewSetViewModel
 import com.opsu.thesaurus.database.viewmodels.ViewSetViewModelFactory
 import com.opsu.thesaurus.fragments.dialogs.DeleteSetDialog
+import com.opsu.thesaurus.game_activities.CorrectIncorrectActivity
 import com.opsu.thesaurus.game_activities.WordScrambleActivity
-import com.opsu.thesaurus.game_activities.SelectTranslationActivity
+import com.opsu.thesaurus.game_activities.LearnActivity
 import kotlin.math.abs
 
 class ViewSetActivity : AppCompatActivity(), DeleteSetDialog.DeleteSetDialogListener
@@ -93,13 +93,19 @@ class ViewSetActivity : AppCompatActivity(), DeleteSetDialog.DeleteSetDialogList
         })
 
         binding.selectTranslationCard.setOnClickListener {
-            val intent = Intent(this, SelectTranslationActivity::class.java)
+            val intent = Intent(this, LearnActivity::class.java)
             intent.putParcelableArrayListExtra("terms", ArrayList(terms))
             startActivity(intent)
         }
 
         binding.wordScrambleCard.setOnClickListener {
             val intent = Intent(this, WordScrambleActivity::class.java)
+            intent.putParcelableArrayListExtra("terms", ArrayList(terms))
+            startActivity(intent)
+        }
+
+        binding.correctIncorrectCard.setOnClickListener {
+            val intent = Intent(this, CorrectIncorrectActivity::class.java)
             intent.putParcelableArrayListExtra("terms", ArrayList(terms))
             startActivity(intent)
         }

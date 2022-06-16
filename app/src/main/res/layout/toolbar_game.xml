@@ -22,7 +22,6 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:background="@drawable/ripple_small"
-
             android:clickable="true"
             android:focusable="true"
             android:paddingHorizontal="15dp">

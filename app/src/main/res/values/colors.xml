@@ -15,7 +15,8 @@
     <color name="on_primary">#2b2c3c</color>
     <color name="on_primary_var">#5d6574</color>
     <color name="accent">#3d50fe</color>
-    <color name="accent_ripple">#3343D5</color>
+    <color name="accent_lighter">#a8b0fe</color>
+    <color name="accent_ripple">#2C3AB6</color>
     <color name="correct_answer">#1bad7a</color>
     <color name="incorrect_answer">#ae001d</color>
 </resources>
