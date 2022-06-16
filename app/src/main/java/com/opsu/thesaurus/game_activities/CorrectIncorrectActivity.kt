@@ -75,7 +75,8 @@ class CorrectIncorrectActivity : AppCompatActivity()
         {
             nextDefinition = terms[activeTermId].definition
             isCorrectDisplayed = true
-        } else {
+        }
+        else {
             var randomId = activeTermId
             while(randomId == activeTermId)
                 randomId = Random.nextInt(0, terms.size)

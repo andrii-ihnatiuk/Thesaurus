@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.opsu.thesaurus.R
 import com.opsu.thesaurus.database.entities.Entities
 import com.opsu.thesaurus.databinding.ActivityWordScrambleBinding
+import com.opsu.thesaurus.fragments.GameResultFragment
 import com.opsu.thesaurus.fragments.dialogs.GameCorrectAnswerDialog
 import com.opsu.thesaurus.fragments.dialogs.GameWrongAnswerDialog
 import kotlin.random.Random
@@ -18,6 +19,7 @@ class WordScrambleActivity : AppCompatActivity() {
     private var correctAnswers = 0
     private var currentWord: String = ""
     private var terms: ArrayList<Entities.Term> = arrayListOf()
+    private var correctIndices: MutableList<Int> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -39,7 +41,18 @@ class WordScrambleActivity : AppCompatActivity() {
                 this.progress = 0
             }
 
-            startGame()
+        supportFragmentManager.setFragmentResultListener("gameFinish", this) {_, result ->
+            val dialogRes = result.get("continue") as Boolean
+            if (dialogRes)
+            {
+                resetGame()
+                startGame()
+            }
+            else
+                finish()
+        }
+
+        startGame()
         }
 
 
@@ -60,6 +73,7 @@ class WordScrambleActivity : AppCompatActivity() {
                 dialog.show(supportFragmentManager, "choiceResult")
                 binding.userInput.text.clear()
                 binding.toolbar.progressIndicator.progress += 1
+                correctIndices.add(currentIteration-1)
                 checkForFinish()
             }
             else {
@@ -73,16 +87,23 @@ class WordScrambleActivity : AppCompatActivity() {
         currentIteration += 1
     }
 
+    private fun resetGame() {
+        currentIteration = 0
+        correctAnswers = 0
+        binding.toolbar.progressIndicator.progress = 0
+        correctIndices.clear()
+    }
+
     private fun checkForFinish() {
         if (currentIteration != terms.size) {
             startGame()
         } else {
             binding.buttonUnscramble.isClickable = false
+            showResultWindow()
         }
     }
 
     private fun mixWord(word: String): String {
-
         val shuffledWord = word.toCharArray().let {
             it.shuffle()
             it.concatToString()
@@ -90,6 +111,12 @@ class WordScrambleActivity : AppCompatActivity() {
         return shuffledWord
     }
 
+    private fun showResultWindow()
+    {
+        val fragment = GameResultFragment(correctAnswers, terms.size)
+        fragment.submitCorrectIndices(terms, correctIndices)
+        fragment.show(supportFragmentManager)
+    }
 
 }
 
