@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingVertical="25dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btnContainer"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingHorizontal="30dp">
+
+            <ImageView
+                android:id="@+id/imgGameResult"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_trophy" />
+
+            <TextView
+                android:id="@+id/txtGameResultTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/game_result_title_good"
+                android:textAlignment="center"
+                android:textColor="@color/on_primary_var"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/txtCorrectCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="@string/game_result_info"
+                android:textAlignment="center"
+                android:textColor="@color/correct_answer"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="2"
+            android:gravity="center_vertical">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/gameResultList"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:paddingStart="50dp"
+                android:paddingEnd="50dp"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:paddingHorizontal="20dp"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:paddingHorizontal="30dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLearnAgain"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/accent"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/btn_repeat_game"
+            android:textColor="@color/primary"
+            app:rippleColor="@color/accent_ripple" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFinish"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/primary"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/btn_end_game"
+            android:textColor="@color/on_primary_var"
+            app:rippleColor="@color/primary_var" />
+
+    </LinearLayout>
+
+</RelativeLayout>
