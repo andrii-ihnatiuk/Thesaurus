@@ -2,24 +2,19 @@ package com.opsu.thesaurus.game_activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import com.opsu.thesaurus.R
 import com.opsu.thesaurus.database.entities.Entities
 import com.opsu.thesaurus.databinding.ActivityWordScrambleBinding
 import com.opsu.thesaurus.fragments.GameResultFragment
 import com.opsu.thesaurus.fragments.dialogs.GameCorrectAnswerDialog
 import com.opsu.thesaurus.fragments.dialogs.GameWrongAnswerDialog
-import kotlin.random.Random
 
 class WordScrambleActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWordScrambleBinding
     private var currentIteration = 0
     private var correctAnswers = 0
-    private var currentWord: String = ""
     private var terms: ArrayList<Entities.Term> = arrayListOf()
-    private var correctIndices: MutableList<Int> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -34,7 +29,7 @@ class WordScrambleActivity : AppCompatActivity() {
                 onBackPressed()
             }
             binding.toolbar.txtGameTitle.text = resources.getString(R.string.card_game2)
-            binding.toolbar.imgGameTitle.setImageResource(R.drawable.ic_wordscramble)
+            binding.toolbar.imgGameTitle.setImageResource(R.drawable.ic_scramble)
 
             binding.toolbar.progressIndicator.apply {
                 this.max = terms.size
@@ -66,20 +61,19 @@ class WordScrambleActivity : AppCompatActivity() {
         binding.scrambledWord.text = mixedWord
 
         binding.buttonUnscramble.setOnClickListener {
-            val userWord = binding.userInput.text.toString() ?: ""
+            val userWord = binding.userInput.text.toString()
             if (userWord.lowercase() == sWord.lowercase()) {
                 correctAnswers+=1
                 val dialog = GameCorrectAnswerDialog()
                 dialog.show(supportFragmentManager, "choiceResult")
-                binding.userInput.text.clear()
+                binding.userInput.setText("")
                 binding.toolbar.progressIndicator.progress += 1
-                correctIndices.add(currentIteration-1)
                 checkForFinish()
             }
             else {
                 val dialog = GameWrongAnswerDialog(sWord, sWord, userWord)
                 dialog.show(supportFragmentManager, "choiceResult")
-                binding.userInput.text.clear()
+                binding.userInput.setText("")
                 binding.toolbar.progressIndicator.progress += 1
                 checkForFinish()
             }
@@ -91,7 +85,6 @@ class WordScrambleActivity : AppCompatActivity() {
         currentIteration = 0
         correctAnswers = 0
         binding.toolbar.progressIndicator.progress = 0
-        correctIndices.clear()
     }
 
     private fun checkForFinish() {
@@ -114,7 +107,6 @@ class WordScrambleActivity : AppCompatActivity() {
     private fun showResultWindow()
     {
         val fragment = GameResultFragment(correctAnswers, terms.size)
-        fragment.submitCorrectIndices(terms, correctIndices)
         fragment.show(supportFragmentManager)
     }
 

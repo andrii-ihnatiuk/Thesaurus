@@ -40,10 +40,11 @@
             android:drawablePadding="5dp"
             android:text="@string/user_name"
             android:textColor="@color/on_primary"
+            android:fontFamily="@font/roboto"
             android:gravity="center_vertical"
             android:paddingTop="20dp"
             app:drawableStartCompat="@drawable/ic_account"
-            app:drawableTint="@color/on_primary" />
+            app:drawableTint="@color/accent" />
 
 
     </LinearLayout>

@@ -45,26 +45,25 @@ class ManageSetViewModel(application: Application, private val setId: Long? = nu
             setDao.addSetWithTerms(set, terms)
         }
     }
-    fun addTermsToSet(terms: List<Entities.Term>, set: Entities.Set): LiveData<List<Long>>
+    fun addTermsToSet(terms: List<Entities.Term>, set: Entities.Set): Job
     {
         terms.forEach {
             it.setIdRef = set.setId
         }
-        val result = MutableLiveData<List<Long>>()
-        viewModelScope.launch(Dispatchers.IO)
+        return viewModelScope.launch(Dispatchers.IO)
         {
             setDao.updateSetTermsNum(set.setId, set.numOfTerms)
-            result.postValue(termDao.addTerms(terms))
+            termDao.addTerms(terms)
         }
-        return result
     }
 
 
     // DELETE
-    fun deleteTerms(terms: List<Entities.Term>): Job
+    fun deleteTermsFromSet(terms: List<Entities.Term>, set: Entities.Set): Job
     {
         return viewModelScope.launch(Dispatchers.IO)
         {
+            setDao.updateSetTermsNum(set.setId, set.numOfTerms)
             termDao.deleteTerms(terms)
         }
     }

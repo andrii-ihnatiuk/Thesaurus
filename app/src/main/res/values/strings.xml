@@ -19,8 +19,10 @@
     <string name="card_game1">Learn</string>
     <string name="card_game2">Word scramble</string>
     <string name="card_game3">True/False</string>
+    <string name="card_soon">soon</string>
 
     <string name="set_name_placeholder">Some set</string>
+    <string name="unscramble_placeholder">Your answer here</string>
 
     <string name="game_nice">Nice!</string>
     <string name="game_wrong">You are wrong</string>
@@ -36,4 +38,5 @@
     <string name="btn_continue">Continue</string>
     <string name="btn_repeat_game">Learn again</string>
     <string name="btn_end_game">Finish</string>
+    <string name="btn_unscramble">Unscramble</string>
 </resources>

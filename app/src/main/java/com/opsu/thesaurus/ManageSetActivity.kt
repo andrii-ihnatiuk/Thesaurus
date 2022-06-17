@@ -65,7 +65,14 @@ class ManageSetActivity : AppCompatActivity() {
             adapter.submitList(dataList)
         }
 
-
+        adapter.setOnDeleteIconClickListener(object : TermsEditAdapter.IconDeleteClickListener {
+            override fun onDeleteIconClick(position: Int)
+            {
+                dataList.removeAt(position)
+                adapter.notifyTermRemoved(position)
+                adapter.checkHideShowDeleteIcons(termsList)
+            }
+        })
         termsList = binding.termsList
         termsList.adapter = adapter
         termsList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -95,6 +102,7 @@ class ManageSetActivity : AppCompatActivity() {
             termsList.post {
                 termsList.smoothScrollToPosition(dataList.size - 1)
             }
+            adapter.checkHideShowDeleteIcons(termsList)
         }
 
     }
@@ -130,7 +138,7 @@ class ManageSetActivity : AppCompatActivity() {
                         )
                     if (deleteList.isNotEmpty())
                         tasks.add(
-                            async { mManageSetViewModel.deleteTerms(deleteList) }
+                            async { mManageSetViewModel.deleteTermsFromSet(deleteList, loadedSet) }
                         )
                     if (insertList.isNotEmpty())
                         tasks.add(

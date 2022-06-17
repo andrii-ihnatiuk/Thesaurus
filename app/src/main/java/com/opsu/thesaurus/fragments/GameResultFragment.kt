@@ -24,8 +24,7 @@ import kotlin.math.abs
 
 class GameResultFragment(private val correct: Int, private val total: Int) : Fragment()
 {
-    private var terms: List<Entities.Term> = listOf()
-    private var correctIndices: List<Int> = listOf()
+    private var gameResult: GameResult? = null
 
     private lateinit var vp2: ViewPager2
 
@@ -55,9 +54,8 @@ class GameResultFragment(private val correct: Int, private val total: Int) : Fra
             txtCorrectCount.setTextColor(ContextCompat.getColor(requireContext(), R.color.incorrect_answer))
         }
 
-        if (terms.isNotEmpty() && correctIndices.isNotEmpty())
-        {
-            val recyclerAdapter = GameResultAdapter(requireContext(), terms, correctIndices)
+        gameResult?.let {
+            val recyclerAdapter = GameResultAdapter(requireContext(), it)
 
             vp2 = view.findViewById(R.id.gameResultList)
             vp2.adapter = recyclerAdapter
@@ -65,21 +63,20 @@ class GameResultFragment(private val correct: Int, private val total: Int) : Fra
             vp2.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
             val pageTransformer = CompositePageTransformer()
-            pageTransformer.addTransformer(MarginPageTransformer(5))
-            pageTransformer.addTransformer(ViewPager2.PageTransformer { page, position ->
+            pageTransformer.addTransformer(MarginPageTransformer(20))
+            pageTransformer.addTransformer { page, position ->
                 val r = 1 - abs(position)
                 page.scaleY = 0.9f + r * 0.1f
-            })
+            }
             vp2.setPageTransformer(pageTransformer)
         }
 
         return view
     }
 
-    fun submitCorrectIndices(terms: List<Entities.Term>, correctIndices: List<Int>)
+    fun submitGameResult(result: GameResult)
     {
-        this.correctIndices = correctIndices
-        this.terms = terms
+        this.gameResult = result
     }
 
     fun show(fragmentManager: FragmentManager)
@@ -91,4 +88,10 @@ class GameResultFragment(private val correct: Int, private val total: Int) : Fra
             .addToBackStack(null)
             .commit()
     }
+
+    data class GameResult(
+        var combinations: MutableList<Entities.Term>, // комбінації термін-визначення які були показані користувачу
+        var userAnswers: MutableList<Boolean>, // відповіді користувача True/False
+        var areCorrectAnswers: MutableList<Boolean> // чи є відповідь користувача правильною
+    )
 }

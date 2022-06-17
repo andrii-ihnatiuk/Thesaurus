@@ -36,7 +36,7 @@
         android:contentDescription="@string/app_name"
         android:focusable="true"
         app:srcCompat="@drawable/ic_notifications"
-        app:tint="@color/on_primary"
+        app:tint="@color/on_primary_var"
         tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
 
 

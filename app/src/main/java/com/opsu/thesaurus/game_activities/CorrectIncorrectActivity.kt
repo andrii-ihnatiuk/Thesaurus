@@ -13,9 +13,9 @@ class CorrectIncorrectActivity : AppCompatActivity()
     private var activeTermId = 0
     private var isCorrectDisplayed = false
     private var correctAnswerCount = 0
-    private var correctIndices: MutableList<Int> = mutableListOf()
 
     private var terms: ArrayList<Entities.Term> = arrayListOf()
+    private var gameResult = GameResultFragment.GameResult(mutableListOf(), mutableListOf(), mutableListOf())
 
     private lateinit var binding: ActivityCorrectIncorrectBinding
 
@@ -25,27 +25,26 @@ class CorrectIncorrectActivity : AppCompatActivity()
         binding = ActivityCorrectIncorrectBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        terms = intent.extras?.getParcelableArrayList<Entities.Term>("terms") as ArrayList<Entities.Term>
+        terms.shuffle()
+
         binding.toolbar.apply {
             this.toolbarCancel.setOnClickListener {
                 onBackPressed()
             }
             this.txtGameTitle.text = resources.getString(R.string.card_game3)
+            this.imgGameTitle.setImageResource(R.drawable.ic_checkmark)
             this.progressIndicator.progress = 0
             this.progressIndicator.max = terms.size
         }
 
-        terms = intent.extras?.getParcelableArrayList<Entities.Term>("terms") as ArrayList<Entities.Term>
-        terms.shuffle()
-
         binding.btnCorrect.setOnClickListener {
             binding.toolbar.progressIndicator.progress += 1
             checkUserChoice(true)
-            bindFields()
         }
         binding.btnIncorrect.setOnClickListener {
             binding.toolbar.progressIndicator.progress += 1
             checkUserChoice(false)
-            bindFields()
         }
 
         supportFragmentManager.setFragmentResultListener("gameFinish", this) {_, result ->
@@ -56,7 +55,11 @@ class CorrectIncorrectActivity : AppCompatActivity()
                 terms.shuffle()
                 activeTermId = 0
                 correctAnswerCount = 0
-                correctIndices.clear()
+                gameResult.apply {
+                    this.combinations.clear()
+                    this.areCorrectAnswers.clear()
+                    this.userAnswers.clear()
+                }
                 bindFields()
             }
             else
@@ -69,7 +72,7 @@ class CorrectIncorrectActivity : AppCompatActivity()
     private fun bindFields()
     {
         val nextTerm = terms[activeTermId].term
-        var nextDefinition = ""
+        val nextDefinition: String
 
         if (Random.nextInt(0, 2) == 1)
         {
@@ -93,10 +96,11 @@ class CorrectIncorrectActivity : AppCompatActivity()
     private fun checkUserChoice(userInput: Boolean)
     {
         if (isCorrectDisplayed == userInput)
-        {
             correctAnswerCount += 1
-            correctIndices.add(activeTermId-1)
-        }
+
+        gameResult.combinations.add(Entities.Term(binding.txtTerm.text.toString(), binding.txtDefinition.text.toString()))
+        gameResult.userAnswers.add(userInput)
+        gameResult.areCorrectAnswers.add(userInput == isCorrectDisplayed)
 
         if (binding.toolbar.progressIndicator.progress == binding.toolbar.progressIndicator.max)
             showResultWindow()
@@ -107,7 +111,7 @@ class CorrectIncorrectActivity : AppCompatActivity()
     private fun showResultWindow()
     {
         val fragment = GameResultFragment(correctAnswerCount, terms.size)
-        fragment.submitCorrectIndices(terms, correctIndices)
+        fragment.submitGameResult(gameResult)
 
         fragment.show(supportFragmentManager)
     }

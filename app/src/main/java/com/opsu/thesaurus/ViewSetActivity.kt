@@ -117,10 +117,10 @@ class ViewSetActivity : AppCompatActivity(), DeleteSetDialog.DeleteSetDialogList
 
         val pageTransformer = CompositePageTransformer()
         pageTransformer.addTransformer(MarginPageTransformer(5))
-        pageTransformer.addTransformer(ViewPager2.PageTransformer { page, position ->
+        pageTransformer.addTransformer { page, position ->
             val r = 1 - abs(position)
             page.scaleY = 0.9f + r * 0.1f
-        })
+        }
 
         vp2.setPageTransformer(pageTransformer)
 
@@ -170,9 +170,6 @@ class ViewSetActivity : AppCompatActivity(), DeleteSetDialog.DeleteSetDialogList
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             R.id.menuEdit -> {
-                mViewSetViewModel.getAllTerms().observe(this) {
-                    Log.d("allTerms", it.toString())
-                }
                 val intent = Intent(this, ManageSetActivity::class.java)
                 intent.putExtra("setId", loadedSet.setId)
                 editSetLauncher.launch(intent)

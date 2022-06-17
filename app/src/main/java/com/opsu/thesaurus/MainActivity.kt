@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.ic_home -> setCurrentFragment(homeFragment)
                 R.id.ic_add -> createNewSet()
-                R.id.ic_profile -> setCurrentFragment(profileFragment)
+                R.id.ic_user -> setCurrentFragment(profileFragment)
             }
             true
         }

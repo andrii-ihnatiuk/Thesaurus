@@ -1,19 +1,20 @@
 package com.opsu.thesaurus.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.*
 import com.opsu.thesaurus.R
-import com.opsu.thesaurus.database.entities.Entities
+import com.opsu.thesaurus.fragments.GameResultFragment
 
 class GameResultAdapter(
     context: Context,
-    private val list: List<Entities.Term>,
-    private val correctIndices: List<Int>
+    private val gameResult: GameResultFragment.GameResult
 ): RecyclerView.Adapter<GameResultAdapter.GameResultViewHolder>()
 {
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -25,6 +26,7 @@ class GameResultAdapter(
 
         val imgStatus: ImageView = view.findViewById(R.id.imgResultStatus)
         val txtStatus: TextView = view.findViewById(R.id.txtResultStatus)
+        val container: LinearLayout = view.findViewById(R.id.statusContainer)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameResultViewHolder {
@@ -36,14 +38,27 @@ class GameResultAdapter(
     }
 
     override fun onBindViewHolder(holder: GameResultViewHolder, position: Int) {
-        holder.txtTerm.text = list[position].term
-        holder.txtDefinition.text = list[position].definition
+        holder.txtTerm.text = gameResult.combinations[position].term
+        holder.txtDefinition.text = gameResult.combinations[position].definition
+        holder.txtStatus.text =
+            if (gameResult.userAnswers[position]) holder.itemView.resources.getString(R.string.game_correct)
+            else holder.itemView.resources.getString(R.string.game_incorrect)
 
-        if (correctIndices.contains(holder.adapterPosition))
+        Log.d("userAnswers", gameResult.userAnswers[position].toString())
+
+        Log.d("areCorrect", gameResult.areCorrectAnswers[position].toString())
+
+        if (gameResult.areCorrectAnswers[position])
         {
-
+            holder.imgStatus.setImageResource(R.drawable.ic_done)
+            holder.container.setBackgroundResource(R.color.correct_answer)
+        }
+        else
+        {
+            holder.imgStatus.setImageResource(R.drawable.ic_cancel_cross)
+            holder.container.setBackgroundResource(R.color.incorrect_answer)
         }
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = gameResult.combinations.size
 }

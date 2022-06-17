@@ -67,7 +67,7 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/gameResultList"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="170dp"
                 android:paddingStart="50dp"
                 android:paddingEnd="50dp"
                 android:paddingBottom="10dp"

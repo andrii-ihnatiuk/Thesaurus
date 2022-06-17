@@ -5,6 +5,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -22,11 +23,20 @@ class TermsEditAdapter(
         const val TITLE_NOT_SET = "Must specify title"
     }
 
+    private var deleteListener: IconDeleteClickListener? = null
+
+    interface IconDeleteClickListener
+    {
+        fun onDeleteIconClick(position: Int)
+    }
+
     lateinit var errPositions: MutableList<ArrayList<Boolean>>
     private var isFirstSubmit = true
+    private var deleteIconsHidden: Boolean = true
 
     class ViewHolder(
-        view: View, termTextLister: TermEditTextListener, defTextListener: DefinitionEditTextListener
+        view: View, termTextLister: TermEditTextListener, defTextListener: DefinitionEditTextListener,
+        private val deleteListener: IconDeleteClickListener?
         ) : RecyclerView.ViewHolder(view) {
 
         val termListener = termTextLister
@@ -41,6 +51,11 @@ class TermsEditAdapter(
         val definition: TextInputEditText = view.findViewById<TextInputEditText?>(R.id.txtEditDefinition).also {
             it.addTextChangedListener(defListener)
         }
+        val imgDelete: FrameLayout = view.findViewById<FrameLayout?>(R.id.imgDeleteTerm).also {
+            it.setOnClickListener {
+                deleteListener?.onDeleteIconClick(adapterPosition)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
@@ -48,7 +63,7 @@ class TermsEditAdapter(
         return ViewHolder(inflater.inflate(
             R.layout.terms_edit_list_item,
             parent,
-            false), TermEditTextListener(currentList, errPositions), DefinitionEditTextListener(currentList, errPositions)
+            false), TermEditTextListener(currentList, errPositions), DefinitionEditTextListener(currentList, errPositions), deleteListener
         )
     }
 
@@ -64,6 +79,11 @@ class TermsEditAdapter(
             this.updateBindings(holder)
             this.disableListener(true)
         }
+
+        if (currentList.size > 2)
+            holder.imgDelete.visibility = View.VISIBLE
+        else
+            holder.imgDelete.visibility = View.INVISIBLE
 
         holder.term.setText(term.term)
         holder.definition.setText(term.definition)
@@ -174,6 +194,12 @@ class TermsEditAdapter(
         this.notifyItemInserted(position)
     }
 
+    fun notifyTermRemoved(position: Int)
+    {
+        errPositions.removeAt(position)
+        this.notifyItemRemoved(position)
+    }
+
     override fun submitList(list: MutableList<Entities.Term>?) {
         super.submitList(list)
 
@@ -183,5 +209,25 @@ class TermsEditAdapter(
             }
         }
         isFirstSubmit = false
+    }
+
+    fun checkHideShowDeleteIcons(view: RecyclerView)
+    {
+        if (currentList.size < 3)
+        {
+            view.findViewHolderForAdapterPosition(0)?.itemView?.findViewById<FrameLayout>(R.id.imgDeleteTerm)?.visibility = View.INVISIBLE
+            view.findViewHolderForAdapterPosition(1)?.itemView?.findViewById<FrameLayout>(R.id.imgDeleteTerm)?.visibility = View.INVISIBLE
+            deleteIconsHidden = true
+        }
+        else if (deleteIconsHidden) {
+            view.findViewHolderForAdapterPosition(0)?.itemView?.findViewById<FrameLayout>(R.id.imgDeleteTerm)?.visibility = View.VISIBLE
+            view.findViewHolderForAdapterPosition(1)?.itemView?.findViewById<FrameLayout>(R.id.imgDeleteTerm)?.visibility = View.VISIBLE
+            deleteIconsHidden = false
+        }
+    }
+
+    fun setOnDeleteIconClickListener(listener: IconDeleteClickListener)
+    {
+        deleteListener = listener
     }
 }

@@ -47,7 +47,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:src="@drawable/ic_account"
-                    app:tint="@color/on_primary"
+                    app:tint="@color/accent"
                     android:contentDescription="@string/app_name"
                     android:layout_marginEnd="10dp"/>
 
@@ -135,7 +135,7 @@
                     android:id="@+id/wordScrambleCard"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
                     android:layout_weight="1"
                     app:cardCornerRadius="5dp"
                     app:cardElevation="2dp">
@@ -152,8 +152,8 @@
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
                             android:contentDescription="@string/card_game1"
-                            android:src="@drawable/ic_wordscramble"
-                            app:tint="@color/accent" />
+                            android:src="@drawable/ic_scramble"
+                            tools:ignore="ImageContrastCheck" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -236,7 +236,22 @@
                     android:layout_weight="1"
                     app:cardElevation="2dp"
                     app:cardCornerRadius="5dp"
-                    android:layout_marginHorizontal="5dp"/>
+                    android:layout_marginHorizontal="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/card_soon"
+                        android:textSize="18sp"
+                        android:textColor="@color/accent_lighter"
+                        android:layout_gravity="center"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:layout_gravity="bottom"
+                        android:background="@color/accent_lighter"/>
+
+                </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
@@ -244,7 +259,24 @@
                     android:layout_weight="1"
                     app:cardElevation="2dp"
                     app:cardCornerRadius="5dp"
-                    android:layout_marginStart="5dp"/>
+                    android:layout_marginStart="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/card_soon"
+                        android:textSize="18sp"
+                        android:textColor="@color/accent_lighter"
+                        android:layout_gravity="center"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="3dp"
+                        android:layout_gravity="bottom"
+                        android:background="@color/accent_lighter"/>
+
+                </androidx.cardview.widget.CardView>
+
+
 
             </LinearLayout>
 
