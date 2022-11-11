@@ -32,26 +32,6 @@ class ViewSetViewModel(application: Application, setId: Long) : AndroidViewModel
         return result
     }
 
-
-//    // DELETE
-//    fun deleteTerms(terms: List<Entities.Term>): Job
-//    {
-//        return viewModelScope.launch(Dispatchers.IO)
-//        {
-//            termDao.deleteTerms(terms)
-//        }
-//    }
-
-//    // UPDATE
-//    fun updateTerms(terms: List<Entities.Term>): Job
-//    {
-//        return viewModelScope.launch(Dispatchers.IO)
-//        {
-//            termDao.updateTerms(terms)
-//        }
-//    }
-
-
 }
 
 class ViewSetViewModelFactory(

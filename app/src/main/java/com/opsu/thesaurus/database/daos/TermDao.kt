@@ -33,6 +33,4 @@ interface TermDao
     @Update
     suspend fun updateTerms(terms: List<Entities.Term>)
 
-
-
 }
